@@ -1,0 +1,29 @@
+version: "3.0"
+services:
+  # MongoDB - Reactive Persistence
+  mongo:
+    build:
+      context: mongo
+      dockerfile: Dockerfile
+    image: "mongodb"
+    hostname: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodata:/data/db
+    env_file:
+      - mongo/.env
+
+  # The mongo-seed container is just for waiting until the main mongo container is done setting its replicaset up
+  # and then initializing data.
+  mongo-seed:
+    build:
+      context: mongo_seed
+      dockerfile: Dockerfile
+    # ping the main mongo instance relentlessly until the connection is ready, then wait, then run an initialize data script to populate data.
+    command: bash -c "until mongo mongo:27017/my_local_db; do echo 'Waiting for Mongo to be ready...'; sleep 1; done; sleep 3; mongo mongo:27017/my_local_db init.js; "
+    links:
+      - mongo
+
+volumes:
+  mongodata:
