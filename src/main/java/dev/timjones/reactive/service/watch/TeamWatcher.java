@@ -22,6 +22,12 @@ public class TeamWatcher {
         this.reactiveMongoTemplate = reactiveMongoTemplate;
     }
 
+    /**
+     * Watch the MongoDB change stream for updates to the fantasy_db.teams collection
+     *
+     * @param teamName - the name of the team to watch
+     * @return a subscription to the change stream
+     */
     public Flux<Team> watchForTeamChanges(String teamName) {
         // set changestream options to watch for any changes to the businesses collection
         ChangeStreamOptions options = ChangeStreamOptions.builder()

@@ -26,12 +26,24 @@ public class TeamHandler {
         this.teamWatcher = teamWatcher;
     }
 
+    /**
+     * Return all teams from the fantasy_db.teams collection
+     *
+     * @param request - the request (unused in this operation)
+     * @return a list of all teams
+     */
     public Mono<ServerResponse> getTeams(ServerRequest request) {
         return ServerResponse.ok()
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromPublisher(this.teamRepository.findAll(), Team.class));
     }
 
+    /**
+     * Update the score for the given player name.
+     *
+     * @param request - must be of the form /{name}/{scoreChange}
+     * @return the team that was updated
+     */
     public Mono<ServerResponse> updatePlayerScore(ServerRequest request) {
         String playerName = request.pathVariable("name");
         String scoreChangeString = request.pathVariable("scoreChange");
@@ -55,6 +67,14 @@ public class TeamHandler {
                 .body(teamMono, Team.class);
     }
 
+    /**
+     * Subscribe to watch updates to a particular team
+     *
+     * @param request - must be of the form /{name}
+     * @return a subscription to a Server Sent Event which
+     * fires every time the requested team is updated in the fantasy_db.teams collection.
+     * The subscription is watching a change stream in MongoDB
+     */
     public Mono<ServerResponse> watchTeam(ServerRequest request) {
         String teamName = request.pathVariable("name");
 
