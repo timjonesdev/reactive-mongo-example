@@ -21,7 +21,7 @@ services:
       context: mongo_seed
       dockerfile: Dockerfile
     # ping the main mongo instance relentlessly until the connection is ready, then wait, then run an initialize data script to populate data.
-    command: bash -c "until mongo mongo:27017/my_local_db; do echo 'Waiting for Mongo to be ready...'; sleep 1; done; sleep 3; mongo mongo:27017/my_local_db init.js; "
+    command: bash -c "until mongo mongo:27017/fantasy_db; do echo 'Waiting for Mongo to be ready...'; sleep 1; done; sleep 3; mongo mongo:27017/fantasy_db init.js; "
     links:
       - mongo
 
