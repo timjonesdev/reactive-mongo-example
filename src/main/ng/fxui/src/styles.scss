@@ -1,1 +1,54 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+/* Custom Material Theme */
+$app-primary: mat-palette($mat-blue-grey);
+$app-accent: mat-palette($mat-indigo);
+$app-warn: mat-palette($mat-red);
+
+$kitchen-app-theme: mat-dark-theme($app-primary, $app-accent, $app-warn);
+
+@include angular-material-theme($kitchen-app-theme);
+/* End custom theme */
+
+html, body {
+  height: 100%;
+  background-color: #303030;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.full-screen {
+  width: 100%;
+  height: 86.7%;
+}
+
+.header-icon {
+  margin-right: 8px;
+  padding-right: 8px;
+  font-size: 48px !important;
+}
+
+.button-buffer {
+  padding: 8px;
+}
+
+.fill-remaining-space {
+  flex: 1 1 auto;
+}
+
+.grid-fit {
+  height: calc(100% - 95px);
+  width: 100%;
+}
+
+@keyframes blink {
+  50% {
+    background-color: mat-color($app-warn)
+  }
+}

@@ -1,0 +1,10 @@
+.sticky-footer {
+  position: fixed;
+  position: -webkit-sticky;
+  bottom: 0;
+  z-index: 1000;
+}
+
+.center {
+  text-align: center;
+}

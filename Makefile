@@ -58,3 +58,12 @@ mongo-terminal:
 # tail the logs for the mongo instance
 mongo-logs:
 	docker logs -f docker_mongo_1
+
+# ----------------------------------------------------------
+# Angular Commands
+# ----------------------------------------------------------
+
+ng-serve:
+	pushd src/main/ng/fxui &&\
+	ng serve &&\
+	popd
