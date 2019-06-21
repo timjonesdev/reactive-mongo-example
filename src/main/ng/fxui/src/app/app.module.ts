@@ -6,17 +6,26 @@ import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HttpClientModule} from '@angular/common/http';
 import {NavigationModule} from './modules/navigation/navigation.module';
+import {TeamCardComponent} from './components/team-card/team-card.component';
+import {MatButtonModule, MatCardModule, MatGridListModule, MatListModule} from "@angular/material";
+import { MatchupComponent } from './components/matchup/matchup.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TeamCardComponent,
+    MatchupComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
-    NavigationModule
+    NavigationModule,
+    MatCardModule,
+    MatButtonModule,
+    MatGridListModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

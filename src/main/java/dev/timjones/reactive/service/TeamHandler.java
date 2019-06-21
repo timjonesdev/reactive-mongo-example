@@ -84,8 +84,6 @@ public class TeamHandler {
 
         Flux<ServerSentEvent<Team>> sse = this.teamWatcher.watchForTeamChanges(teamName)
                 .map(team -> ServerSentEvent.<Team>builder()
-                        .id(team.getId().toHexString())
-                        .event("team-update")
                         .data(team)
                         .build());
 
@@ -97,8 +95,6 @@ public class TeamHandler {
 
         Flux<ServerSentEvent<Team>> sse = this.teamWatcher.watchForTeamCollectionChanges()
                 .map(team -> ServerSentEvent.<Team>builder()
-                        .id(team.getId().toHexString())
-                        .event("team-update")
                         .data(team)
                         .build());
 

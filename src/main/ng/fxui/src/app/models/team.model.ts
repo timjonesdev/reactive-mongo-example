@@ -5,6 +5,7 @@ export class TeamModel implements Deserializable {
   id: string;
   name: string;
   players: PlayerModel[] = [];
+  totalScore: number;
 
   deserialize(input: any): this {
     Object.assign(this, input);
