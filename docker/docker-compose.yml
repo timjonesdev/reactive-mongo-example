@@ -1,5 +1,18 @@
 version: "3.0"
 services:
+  # Core Spring Boot Application
+  app:
+    build:
+      context: ..
+      dockerfile: ./Dockerfile
+    image: "rx_mongo_example"
+    env_file:
+      - .env
+    links:
+      - mongo
+    ports:
+      - 8080:8080
+
   # MongoDB - Reactive Persistence
   mongo:
     build:

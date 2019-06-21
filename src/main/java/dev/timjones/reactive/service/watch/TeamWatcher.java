@@ -44,4 +44,20 @@ public class TeamWatcher {
                 .doOnError(throwable -> log.error("Error with the teams changestream event: " + throwable.getMessage(), throwable));
 
     }
+
+    public Flux<Team> watchForTeamCollectionChanges() {
+        // set changestream options to watch for any changes to the businesses collection
+        ChangeStreamOptions options = ChangeStreamOptions.builder()
+                .filter(Aggregation.newAggregation(Team.class,
+                        Aggregation.match(
+                                Criteria.where("operationType").is("replace")
+                        )
+                )).returnFullDocumentOnUpdate().build();
+
+        // return a flux that watches the changestream and returns the full document
+        return reactiveMongoTemplate.changeStream("teams", options, Team.class)
+                .map(ChangeStreamEvent::getBody)
+                .doOnError(throwable -> log.error("Error with the teams changestream event: " + throwable.getMessage(), throwable));
+
+    }
 }

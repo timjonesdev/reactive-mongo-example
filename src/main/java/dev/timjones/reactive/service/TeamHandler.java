@@ -1,5 +1,6 @@
 package dev.timjones.reactive.service;
 
+import dev.timjones.reactive.data.model.Player;
 import dev.timjones.reactive.data.model.Team;
 import dev.timjones.reactive.data.repository.TeamRepository;
 import dev.timjones.reactive.service.watch.TeamWatcher;
@@ -57,7 +58,10 @@ public class TeamHandler {
                     // find the correct player, and update the score
                     team.getPlayers().stream()
                             .filter(player -> player.getName().equals(playerName))
-                            .forEach(player -> player.setScore(player.getScore() + scoreChange));
+                            .forEach(player -> {
+                                player.setScore(player.getScore() + scoreChange);
+                                team.setTotalScore(recalculateScore(team));
+                            });
                     return team;
                 })
                 .flatMap(teamRepository::save);
@@ -86,5 +90,24 @@ public class TeamHandler {
                         .build());
 
         return ServerResponse.ok().body(BodyInserters.fromServerSentEvents(sse));
+    }
+
+    public Mono<ServerResponse> watchTeams(ServerRequest request) {
+
+
+        Flux<ServerSentEvent<Team>> sse = this.teamWatcher.watchForTeamCollectionChanges()
+                .map(team -> ServerSentEvent.<Team>builder()
+                        .id(team.getId().toHexString())
+                        .event("team-update")
+                        .data(team)
+                        .build());
+
+        return ServerResponse.ok().body(BodyInserters.fromServerSentEvents(sse));
+    }
+
+    private Double recalculateScore(Team team) {
+        return team.getPlayers().stream()
+                .mapToDouble(Player::getScore)
+                .sum();
     }
 }

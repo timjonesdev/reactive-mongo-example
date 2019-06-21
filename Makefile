@@ -7,8 +7,18 @@ DOCKER_COMPOSE=docker-compose -f $(DOCKER_COMPOSE_FILE)
 # ----------------------------------------------------------
 # Main Commands
 # ----------------------------------------------------------
-all:	up-db-local
+all: docker-build-all rebuild-mongo docker-up-all
 
+docker-build-all:
+	pushd docker &&\
+	docker-compose build &&\
+	popd
+
+docker-up-all:
+	pushd docker &&\
+	docker-compose up -d &&\
+	popd
+	
 up-db-local:	rebuild-mongo
 	$(DOCKER_COMPOSE) up -d mongo
 

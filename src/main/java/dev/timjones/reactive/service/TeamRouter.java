@@ -14,6 +14,7 @@ public class TeamRouter {
     public RouterFunction<ServerResponse> route(TeamHandler teamHandler) {
         return RouterFunctions
                 .route(RequestPredicates.GET("/teams"), teamHandler::getTeams)
+                .andRoute(RequestPredicates.GET("/teams/watch"), teamHandler::watchTeams)
                 .andRoute(RequestPredicates.GET("/update/{name}/{scoreChange}"), teamHandler::updatePlayerScore)
                 .andRoute(RequestPredicates.GET("/team/{name}"), teamHandler::watchTeam);
     }

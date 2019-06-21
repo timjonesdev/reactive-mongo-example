@@ -4,6 +4,7 @@ db = db.getSiblingDB('fantasy_db');
 db.teams.insert(
     [
         {
+            "_id": ObjectId("5d0c18c190d2b33ae629aaa7"),
             "name": "HingleMcCringleberry",
             "players": [
                 {
@@ -26,24 +27,13 @@ db.teams.insert(
             "total_score": 0
         },
         {
+            "_id": ObjectId("5d0c18c190d2b33ae629aaa8"),
             "name": "rustezzies",
             "players": [
-                {
-                    "name": "David Johnson",
-                    "score": 0
-                },
-                {
-                    "name": "Chris Carson",
-                    "score": 0
-                },
-                {
-                    "name": "JuJu Smith-Schuster",
-                    "score": 0
-                },
-                {
-                    "name": "DeAndre Hopkins",
-                    "score": 0
-                }
+                {"name": "David Johnson", "score": 0},
+                {"name": "Chris Carson", "score": 0},
+                {"name": "JuJu Smith-Schuster", "score": 0},
+                {"name": "DeAndre Hopkins", "score": 0}
             ],
             "total_score": 0
         }
