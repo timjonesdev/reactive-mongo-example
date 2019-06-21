@@ -90,8 +90,13 @@ public class TeamHandler {
         return ServerResponse.ok().body(BodyInserters.fromServerSentEvents(sse));
     }
 
+    /**
+     * Subscribe to watch changes for any team in the collection
+     *
+     * @param request
+     * @return
+     */
     public Mono<ServerResponse> watchTeams(ServerRequest request) {
-
 
         Flux<ServerSentEvent<Team>> sse = this.teamWatcher.watchForTeamCollectionChanges()
                 .map(team -> ServerSentEvent.<Team>builder()
@@ -101,6 +106,12 @@ public class TeamHandler {
         return ServerResponse.ok().body(BodyInserters.fromServerSentEvents(sse));
     }
 
+    /**
+     * Helper function to tally total score based on individual player scores
+     *
+     * @param team - the team to sum scores for
+     * @return the total score
+     */
     private Double recalculateScore(Team team) {
         return team.getPlayers().stream()
                 .mapToDouble(Player::getScore)

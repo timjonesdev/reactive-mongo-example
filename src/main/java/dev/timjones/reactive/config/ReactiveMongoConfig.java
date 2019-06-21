@@ -7,6 +7,9 @@ import org.springframework.data.mongodb.config.AbstractReactiveMongoConfiguratio
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRepositories;
 
+/**
+ * Config class to set up necessary components for watching the MongoDB change stream
+ */
 @EnableReactiveMongoRepositories
 public class ReactiveMongoConfig extends AbstractReactiveMongoConfiguration {
 

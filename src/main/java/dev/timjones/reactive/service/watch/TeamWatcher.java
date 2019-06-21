@@ -40,11 +40,15 @@ public class TeamWatcher {
         // return a flux that watches the changestream and returns the full document
         return reactiveMongoTemplate.changeStream("teams", options, Team.class)
                 .map(ChangeStreamEvent::getBody)
-                .filter(team -> team.getName().equals(teamName))
+                .filter(team -> team.getName().equals(teamName)) // filter to only return the team that matches the name
                 .doOnError(throwable -> log.error("Error with the teams changestream event: " + throwable.getMessage(), throwable));
-
     }
 
+    /**
+     * Watch for changes to the teams collection
+     *
+     * @return a subscription to the change stream
+     */
     public Flux<Team> watchForTeamCollectionChanges() {
         // set changestream options to watch for any changes to the businesses collection
         ChangeStreamOptions options = ChangeStreamOptions.builder()
@@ -58,6 +62,5 @@ public class TeamWatcher {
         return reactiveMongoTemplate.changeStream("teams", options, Team.class)
                 .map(ChangeStreamEvent::getBody)
                 .doOnError(throwable -> log.error("Error with the teams changestream event: " + throwable.getMessage(), throwable));
-
     }
 }

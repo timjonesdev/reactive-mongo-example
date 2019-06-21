@@ -1,4 +1,34 @@
 ####################
+###  Node Setup  ###
+####################
+FROM node:10.13-alpine as node-angular-cli
+#Linux setup
+RUN apk update \
+  && apk add --update alpine-sdk \
+  && apk del alpine-sdk \
+  && rm -rf /tmp/* /var/cache/apk/* *.tar.gz ~/.npm \
+  && npm cache verify \
+  && sed -i -e "s/bin\/ash/bin\/sh/" /etc/passwd
+
+#Angular CLI
+RUN npm install -g @angular/cli@8.0.3
+
+####################
+### Node Builder ###
+####################
+FROM node-angular-cli as node-builder
+
+RUN mkdir -p /build
+
+COPY /src/main/ng/fxui /build/src
+
+WORKDIR /build/src
+
+RUN npm rebuild node-sass &&\
+    npm install &&\
+    ng build --prod --output-path ../dist
+
+####################
 ### Java Builder ###
 ####################
 FROM maven:3.6.0-jdk-8 as java-builder
@@ -13,6 +43,8 @@ RUN mvn -B dependency:resolve dependency:resolve-plugins
 COPY src/main/java /build/src/main/java
 COPY src/main/resources /build/src/main/resources
 COPY src/test /build/src/test
+
+COPY --from=node-builder build/dist /build/src/main/resources/static
 
 RUN mvn package
 

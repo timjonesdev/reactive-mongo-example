@@ -33,9 +33,10 @@ export class TeamService {
       () => console.log('done loading team stream'));
   }
 
+  /**
+   * Get the initial set of teams
+   */
   getTeams(): Observable<TeamModel[]> {
-    let type = 'application/json';
-
     return this.http.get<TeamModel[]>(this.allTeamsUrl);
   }
 
