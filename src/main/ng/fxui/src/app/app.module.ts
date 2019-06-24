@@ -7,14 +7,17 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HttpClientModule} from '@angular/common/http';
 import {NavigationModule} from './modules/navigation/navigation.module';
 import {TeamCardComponent} from './components/team-card/team-card.component';
-import {MatButtonModule, MatCardModule, MatGridListModule, MatListModule} from "@angular/material";
+import {MatButtonModule, MatCardModule, MatGridListModule, MatInputModule, MatListModule, MatToolbarModule} from "@angular/material";
 import { MatchupComponent } from './components/matchup/matchup.component';
+import { SimulationToolbarComponent } from './components/simulation-toolbar/simulation-toolbar.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
     AppComponent,
     TeamCardComponent,
-    MatchupComponent
+    MatchupComponent,
+    SimulationToolbarComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +28,11 @@ import { MatchupComponent } from './components/matchup/matchup.component';
     MatCardModule,
     MatButtonModule,
     MatGridListModule,
-    MatListModule
+    MatListModule,
+    MatToolbarModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

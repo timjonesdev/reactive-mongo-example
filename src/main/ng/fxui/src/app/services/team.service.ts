@@ -12,6 +12,8 @@ export class TeamService {
   private teamWatchUrl = environment.backendUrl + environment.watchTeamPath;
   private allTeamsUrl = environment.backendUrl + environment.getAllTeamsPath;
   private updatePlayerUrl = environment.backendUrl + environment.updatePlayerPath;
+  private zeroScoreUrl = environment.backendUrl + environment.zeroScorePath;
+  private randomSimulationUrl = environment.backendUrl + environment.updateRandomPath;
 
   private teamsSource = new BehaviorSubject([]);
   _teamsSource: Observable<TeamModel[]> = this.teamsSource.asObservable();
@@ -50,6 +52,17 @@ export class TeamService {
     url = url.replace('{scoreChange}', '' + scoreChange);
 
     this.http.get(url).subscribe();
+  }
+
+  randomSimulation(count: number): void {
+    let url = this.randomSimulationUrl.replace('{count}', '' + count);
+
+    this.http.get(url).subscribe();
+  }
+
+  resetScores(): void {
+
+    this.http.get(this.zeroScoreUrl).subscribe();
   }
 
   /**

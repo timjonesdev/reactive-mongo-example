@@ -1,3 +1,4 @@
+<app-simulation-toolbar></app-simulation-toolbar>
 <mat-grid-list cols="2" rowHeight="2:1" *ngIf="teams !== undefined && teams.length > 0">
   <mat-grid-tile *ngFor="let team of teams" class="grid-fit">
     <app-team-card [team]="team"></app-team-card>

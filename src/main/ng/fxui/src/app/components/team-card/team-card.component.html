@@ -1,12 +1,22 @@
-<mat-card *ngIf="team != undefined && team.players != undefined">
+<mat-card class="team-card" *ngIf="team != undefined && team.players != undefined">
   <mat-card-header>
     <mat-card-title>
-      {{team.name}} - {{team.totalScore}}
+      <div class="team-name">{{team.name}}</div>
     </mat-card-title>
   </mat-card-header>
   <mat-card-content>
     <mat-list>
-      <mat-list-item *ngFor="let player of team.players">{{player.name}}: {{player.score}}</mat-list-item>
+      <mat-list-item *ngFor="let player of team.players">
+        <div class="player-name">{{player.name}}:</div>
+        <div class="fill-remaining-space"></div>
+        <div class="player-score" [ngClass]="player.score >= 0 ? 'positive-number' : 'negative-number'">{{player.score | number : '1.2-2'}}</div>
+      </mat-list-item>
     </mat-list>
   </mat-card-content>
+  <mat-card-footer>
+    <mat-divider></mat-divider>
+    <mat-card-actions align="end">
+      <div class="right-align" [ngClass]="team.totalScore >= 0 ? 'positive-number' : 'negative-number'">{{team.totalScore | number : '1.2-2'}}</div>
+    </mat-card-actions>
+  </mat-card-footer>
 </mat-card>

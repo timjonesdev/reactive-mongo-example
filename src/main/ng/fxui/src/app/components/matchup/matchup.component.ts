@@ -31,14 +31,14 @@ export class MatchupComponent implements OnInit {
     });
 
     // subscribe to changes in player team scores and player values
-    this.teamService._teamWatchSource.subscribe(value => {
-      if (value !== undefined && value.name !== undefined) {
-        let name = value.name;
+    this.teamService._teamWatchSource.subscribe(updatedTeam => {
+      if (updatedTeam !== undefined && updatedTeam.name !== undefined) {
+        let name = updatedTeam.name;
         let length = this.teams.length;
 
         for (let i = 0; i < length; i++) {
           if (this.teams[i].name === name) {
-            this.teams[i] = value;
+            this.teams[i] = updatedTeam;
           }
         }
 
