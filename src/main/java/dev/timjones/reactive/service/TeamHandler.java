@@ -120,13 +120,12 @@ public class TeamHandler {
      */
     public Mono<ServerResponse> randomizeScore(ServerRequest request) {
         String countString = request.pathVariable("count");
-        int count = Integer.valueOf(countString);
+        int count = Integer.parseInt(countString);
 
         if (count < 0 || count > 40) {
             return ServerResponse.badRequest().body(BodyInserters.fromObject("Count must be between 0 and 40"));
         }
-
-
+        
         Flux<String> playerNames = this.teamRepository.findAll()
                 .map(Team::getPlayers)
                 .map(players -> players.stream().map(Player::getName))
