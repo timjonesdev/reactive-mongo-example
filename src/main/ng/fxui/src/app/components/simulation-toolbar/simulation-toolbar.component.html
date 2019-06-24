@@ -1,10 +1,10 @@
 <mat-toolbar>
   <mat-form-field class="toolbar-form-field">
     <mat-label>Simulation Count</mat-label>
-    <input matInput placeholder="Simulation Count" value="5" type="number" [(ngModel)]="simulationCount">
+    <input matInput placeholder="Simulation Count" type="number" [(ngModel)]="simulationCount">
   </mat-form-field>
   <span class="button-buffer"></span>
   <button mat-raised-button color="accent" (click)="simulateClicked($event)">Simulate</button>
   <span class="fill-remaining-space"></span>
-  <button mat-raised-button color="accent" (click)="resetClicked($event)">Reset</button>
+  <button mat-raised-button color="warn" (click)="resetClicked($event)">Reset</button>
 </mat-toolbar>
